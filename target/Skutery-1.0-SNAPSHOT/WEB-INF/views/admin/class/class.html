@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.springframework.org/schema/data/jaxb">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Dodaj egzemplarz</title>
+    <style>
+        * { padding: 0; margin: 0; }
+        html, body{
+            min-height: 100% !important;
+            height: 100%;
+            background-color: #fcfbfb;
+        }
+        #container {
+            width: 100%;
+            height: 85%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        #logo {
+            background-color: #404040;
+            color: #c1c1c1;
+            height: 100px;
+            margin-left: 5%;
+            margin-right: 5%;
+        }
+        #content {
+            margin-left: 5%;
+            margin-right: 5%;
+            margin-top: 40px;
+            height: 85%;
+
+        }
+        #footer {
+            clear: both;
+
+            background-color: #404040;
+            height: 100px;
+            margin-left: 5%;
+            margin-right: 5%;
+        }
+        .rect{
+            width: 100%;
+            height: 10px;
+            margin-bottom: 10px;
+            margin-top: 10px;
+            background-color: lightgray;
+        }
+    </style>
+</head>
+<body>
+<div id="container">
+
+    <div id="logo">
+        <div>
+            <a th:href="@{'/'}">
+                <h2 style="float: left; margin-left: 30px ; margin-right: 20px; margin-top: 36px; color: lightgray">Scooter Rental</h2>
+                <img th:src="@{/images/bike.svg}" th:width="64px" th:height="64px" style="float: left; margin-top: 18px"/>
+            </a>
+        </div>
+        <div>
+            <a th:href="@{/logout}" style="float: right; margin-top: 38px; margin-right: 30px; color: lightgray"><h3>Wyloguj</h3></a>
+            <a th:href="@{/admin}" style="float: right; margin-top: 38px; margin-right: 30px; color: lightgray"><h3>Admin</h3></a>
+        </div>
+    </div>
+
+    <div id="content">
+
+        <div class="rect"></div>
+        <h1 style="color: #c1c1c1">Admin -> Klasy</h1>
+        <div class="rect"></div>
+
+        <h2 style="color: #c1c1c1; margin-top: 20px; margin-bottom: 20px">Klasy</h2>
+
+        <table border="1">
+            <tr>
+                <td><label th:text="Id" /></td>
+                <td><label th:text="Opis" /></td>
+                <td><label th:text="'Cena za dobe'" /></td>
+            </tr>
+            <tr th:each="c : ${cenniki}">
+                <td><label th:text="${c.id}" /></td>
+                <td><label th:text="${c.opis}" /></td>
+                <td><label th:text="${c.cena_doba}" /></td>
+                <form th:action="@{/admin/class/{id}(id=${c.id})}" method="get">
+                    <td><input type="submit" value="Usuń" /></td>
+                </form>
+            </tr>
+            <tr>
+                <form th:action="@{/admin/class/add}" method="get">
+                    <td><input type="submit" value="Dodaj" /></td>
+                </form>
+            </tr>
+        </table>
+
+    </div>
+
+    <div id="footer">
+        <h3 style="color: #c1c1c1; float: left; margin-left: 30px; margin-top: 38px">Scooter Rental &copy; Wszelkie prawa zastrzeżone</h3>
+        <h3 style="color: #c1c1c1; float: right; margin-right: 30px; margin-top: 38px">scooter@gmail.com</h3>
+    </div>
+</div>
+</body>
+</html>
